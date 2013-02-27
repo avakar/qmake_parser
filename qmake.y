@@ -45,8 +45,8 @@ fncall(r) ::= IDENT(name) "(" param_list(args) ")". {
 
 param_list :: {std::vector<std::string>}
 param_list(r) ::= . {}
-param_list(r) ::= TEXT(i). { r.push_back(i); }
-param_list(r) ::= param_list(r) "," TEXT(i). { r.push_back(i); }
+param_list(r) ::= PARAM_TEXT(i). { r.push_back(i); }
+param_list(r) ::= param_list(r) "," PARAM_TEXT(i). { r.push_back(i); }
 
 cond_list :: {std::vector<std::vector<cond> >}
 cond_list(r) ::= . {}
@@ -97,7 +97,10 @@ STR :: {std::string}
 STR ~= {"([^"]|\\")*"}(s) { return s.substr(1, s.size() - 2); }
 
 IDENT :: {std::string}
-IDENT ~= {([^"\s\(\),:!=\+\|]|"([^"]|\\")*")+}
+IDENT ~= {([^"\s\(\)\{\},:!=\+\|]|"([^"]|\\")*")+}
+
+PARAM_TEXT :: {std::string}
+PARAM_TEXT ~= {([^"\s,\(\)]|"([^"]|\\")*")+}
 
 TEXT :: {std::string}
-TEXT ~= {([^"\s\(\),:!=\+]|"([^"]|\\")*")+}
+TEXT ~= {([^"\s]|"([^"]|\\")*")+}

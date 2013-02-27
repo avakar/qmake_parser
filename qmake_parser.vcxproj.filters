@@ -2,11 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="msvc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qmake.y" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ast.hpp" />
+    <ClInclude Include="env.hpp" />
   </ItemGroup>
 </Project>

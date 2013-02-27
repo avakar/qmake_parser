@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+	<ItemType Name="QtRcCompile" DisplayName="QtRcCompile" />
+	<FileExtension Name="*.qrc" ContentType="QtRcCompile" />
+	<ContentType Name="QtRcCompile" DisplayName="QtRcCompile" ItemType="QtRcCompile" />
+</ProjectSchemaDefinitions>

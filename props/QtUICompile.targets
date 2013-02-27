@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+		<AvailableItemName Include="QtUICompile">
+			<Targets>QtUICompile</Targets>
+		</AvailableItemName>
+	</ItemGroup>
+	<PropertyGroup>
+		<CleanDependsOn>
+			QtUICompileClean;
+			$(CleanDependsOn)
+		</CleanDependsOn>
+	</PropertyGroup>
+	<Target Name="QtUICompile" BeforeTargets="ClCompile" Inputs="@(QtUICompile)" Outputs="@(QtUICompile->'%(OutDir)\ui_%(Filename).h')">
+		<Message Text="%(QtUICompile.Identity)" />
+		<Exec Command="c:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\uic.exe &quot;%(QtUICompile.FullPath)&quot; -o &quot;%(QtUICompile.OutDir)\ui_%(QtUICompile.Filename).h&quot;" />
+	</Target>
+	<Target Name="QtUICompileClean">
+		<Delete Files="@(QtUICompile->'%(OutDir)\ui_%(Filename).h')" />
+	</Target>
+</Project>

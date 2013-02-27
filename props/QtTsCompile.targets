@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+		<AvailableItemName Include="QtTsCompile">
+			<Targets>QtTsCompile</Targets>
+		</AvailableItemName>
+	</ItemGroup>
+	<PropertyGroup>
+		<CleanDependsOn>
+			QtTsCompileClean;
+			$(CleanDependsOn)
+		</CleanDependsOn>
+	</PropertyGroup>
+
+	<Target Name="QtTsCompile" BeforeTargets="ClCompile" Inputs="@(QtTsCompile)" Outputs="@(QtTsCompile->'%(RootDir)%(Directory)%(Filename).qm')">
+		<Exec Command="c:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\lrelease.exe &quot;%(QtTsCompile.FullPath)&quot; -qm &quot;%(QtTsCompile.RootDir)%(QtTsCompile.Directory)%(QtTsCompile.Filename).qm&quot;" />
+	</Target>
+	<Target Name="QtTsCompileClean">
+		<Delete Files="@(QtTsCompile->'%(RootDir)%(Directory)%(Filename).qm')" />
+	</Target>
+</Project>

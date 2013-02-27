@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+		<AvailableItemName Include="QtMoc">
+			<Targets>QtMoc</Targets>
+		</AvailableItemName>
+	</ItemGroup>
+	<PropertyGroup>
+		<CleanDependsOn>
+			QtMocClean;
+			$(CleanDependsOn)
+		</CleanDependsOn>
+	</PropertyGroup>
+
+	<Target Name="QtMoc" BeforeTargets="ClCompile" Inputs="@(QtMoc)" Outputs="@(QtMoc->'%(OutDir)\moc_%(Filename).cpp')">
+		<!--<Message Text="%(QtMoc.Identity)" />-->
+		<Exec Command="c:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\moc.exe %(QtMoc.PreprocessorDefines2) &quot;%(QtMoc.FullPath)&quot; -o &quot;%(QtMoc.OutDir)\moc_%(QtMoc.Filename).cpp&quot;" />
+	</Target>
+	<Target Name="QtMocClean">
+		<Delete Files="@(QtMoc->'%(OutDir)\moc_%(Filename).cpp')" />
+	</Target>
+</Project>

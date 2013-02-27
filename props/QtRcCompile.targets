@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+		<AvailableItemName Include="QtRcCompile">
+			<Targets>QtRcCompile</Targets>
+		</AvailableItemName>
+	</ItemGroup>
+	<PropertyGroup>
+		<CleanDependsOn>
+			QtRcCompileClean;
+			$(CleanDependsOn)
+		</CleanDependsOn>
+	</PropertyGroup>
+
+	<Target Name="QtRcCompile" BeforeTargets="ClCompile" Inputs="@(QtRcCompile)" Outputs="@(QtRcCompile->'%(OutDir)\qrc_%(Filename).cpp')">
+		<Exec Command="c:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\rcc.exe &quot;%(QtRcCompile.FullPath)&quot; -o &quot;%(QtRcCompile.OutDir)\qrc_%(QtRcCompile.Filename).cpp&quot;" />
+	</Target>
+	<Target Name="QtRcCompileClean">
+		<Delete Files="@(QtRcCompile->'%(OutDir)\qrc_%(Filename).cpp')" />
+	</Target>
+</Project>
